@@ -1,3 +1,4 @@
+export * from "request-typer";
 export * from "./application";
 export * from "./switch";
 export * from "./route";
