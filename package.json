@@ -2,7 +2,10 @@
   "name": "typed-express",
   "version": "0.0.0",
   "description": "Make express.js fully-typed",
-  "main": "index.js",
+  "main": "./dst/index.js",
+  "files": [
+    "dst"
+  ],
   "scripts": {
     "build": "rm -rf dst && tsc",
     "format": "prettier --write 'src/**/*.ts' --print-width=120"
