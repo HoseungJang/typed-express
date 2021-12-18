@@ -9,7 +9,7 @@ Make express.js fully-typed and serve automatically generated OpenAPI Specificat
 
 ## Features
 - [Create Routes](#create-routes)
-- [Fully-Typed Request Parameters And Response Body](#fullytyped-request-parameters-and-response-body)
+- [Fully-Typed Request Parameters And Response Body](#fully-typed-request-parameters-and-response-body)
 - [OpenAPI Route](#openapi-route)
 
 ## Create Routes
