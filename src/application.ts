@@ -1,6 +1,6 @@
 import * as express from "express";
 
-import { Switch } from "./switch";
+import { Switch } from ".";
 
 export class Application {
   private app: express.Application;

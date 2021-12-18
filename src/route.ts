@@ -1,5 +1,8 @@
 import { Request, Response, RequestHandler } from "express";
+
 import {
+  ErrorResponse,
+  Middleware,
   HTTPRequest,
   Method,
   Parameters,
@@ -12,9 +15,7 @@ import {
   AllSchema,
   Validator,
   ValidationResult,
-} from "request-typer";
-
-import { ErrorResponse, Middleware } from ".";
+} from ".";
 
 type RouteHandler<P extends Parameters, R extends ResponseBody> = (
   req: Request<ResolvePathParameters<P>, Resolve<R>, ResolveRequestBody<P>, ResolveQueryParameters<P>>,

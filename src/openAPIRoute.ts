@@ -1,7 +1,6 @@
 import { OpenAPIV3_1 } from "openapi-types";
-import { ResponseBody, OASBuilder, HTTPRequest } from "request-typer";
 
-import { Switch, Route } from ".";
+import { ResponseBody, OASBuilder, HTTPRequest, Switch, Route } from ".";
 
 export class OpenAPIRoute {
   public readonly spec: ReturnType<OASBuilder["build"]>;

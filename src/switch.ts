@@ -1,9 +1,6 @@
 import { Router } from "express";
 
-import { Route } from "./route";
-import { Middleware } from "./middleware";
-import { ErrorHandler } from "./errorHandler";
-import { OpenAPIRoute } from "./openAPIRoute";
+import { Route, Middleware, ErrorHandler, OpenAPIRoute } from ".";
 
 export class Switch {
   public readonly router: Router = Router();
