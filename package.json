@@ -1,6 +1,6 @@
 {
   "name": "typed-express",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Make express.js fully-typed",
   "main": "./dst/index.js",
   "files": [
