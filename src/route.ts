@@ -1,4 +1,5 @@
 import { Request, Response, RequestHandler } from "express";
+import { ExtractParametersFromPath } from "request-typer";
 
 import {
   ErrorResponse,
@@ -38,62 +39,66 @@ function validateWithParse(schema: AllSchema, value: any) {
 }
 
 export class Route {
-  public static GET<P extends Parameters, R extends ResponseBody>(
-    path: string,
+  public static GET<PA extends string, PR extends ExtractParametersFromPath<PA> & Parameters, R extends ResponseBody>(
+    path: PA,
     operationId: string,
-    parameters: P,
+    parameters: PR,
     responseBody: R,
-    handler: RouteHandler<P, R>,
+    handler: RouteHandler<PR, R>,
     options: RouteOpions = {}
   ): Route {
     return new this("get", path, operationId, parameters, responseBody, handler, options);
   }
 
-  public static POST<P extends Parameters, R extends ResponseBody>(
-    path: string,
+  public static POST<PA extends string, PR extends ExtractParametersFromPath<PA> & Parameters, R extends ResponseBody>(
+    path: PA,
     operationId: string,
-    parameters: P,
+    parameters: PR,
     responseBody: R,
-    handler: RouteHandler<P, R>,
+    handler: RouteHandler<PR, R>,
     options: RouteOpions = {}
   ): Route {
     return new this("post", path, operationId, parameters, responseBody, handler, options);
   }
 
-  public static PUT<P extends Parameters, R extends ResponseBody>(
-    path: string,
+  public static PUT<PA extends string, PR extends ExtractParametersFromPath<PA> & Parameters, R extends ResponseBody>(
+    path: PA,
     operationId: string,
-    parameters: P,
+    parameters: PR,
     responseBody: R,
-    handler: RouteHandler<P, R>,
+    handler: RouteHandler<PR, R>,
     options: RouteOpions = {}
   ): Route {
     return new this("put", path, operationId, parameters, responseBody, handler, options);
   }
 
-  public static PATCH<P extends Parameters, R extends ResponseBody>(
-    path: string,
+  public static PATCH<PA extends string, PR extends ExtractParametersFromPath<PA> & Parameters, R extends ResponseBody>(
+    path: PA,
     operationId: string,
-    parameters: P,
+    parameters: PR,
     responseBody: R,
-    handler: RouteHandler<P, R>,
+    handler: RouteHandler<PR, R>,
     options: RouteOpions = {}
   ): Route {
     return new this("patch", path, operationId, parameters, responseBody, handler, options);
   }
 
-  public static DELETE<P extends Parameters, R extends ResponseBody>(
-    path: string,
+  public static DELETE<
+    PA extends string,
+    PR extends ExtractParametersFromPath<PA> & Parameters,
+    R extends ResponseBody
+  >(
+    path: PA,
     operationId: string,
-    parameters: P,
+    parameters: PR,
     responseBody: R,
-    handler: RouteHandler<P, R>,
+    handler: RouteHandler<PR, R>,
     options: RouteOpions = {}
   ): Route {
     return new this("delete", path, operationId, parameters, responseBody, handler, options);
   }
 
-  public readonly requestSchema: HTTPRequest<Method, Parameters, ResponseBody>;
+  public readonly requestSchema: HTTPRequest<Method, any, Parameters, ResponseBody>;
   public readonly middlewares: Middleware[];
   public readonly handler: RequestHandler;
 
@@ -129,10 +134,12 @@ export class Route {
     this.handler = this.createHandler(this.requestSchema, handler);
   }
 
-  private createHandler<M extends Method, P extends Parameters, R extends ResponseBody>(
-    requestSchema: HTTPRequest<M, P, R>,
-    handler: RouteHandler<P, R>
-  ): RequestHandler {
+  private createHandler<
+    M extends Method,
+    PA extends string,
+    PR extends ExtractParametersFromPath<PA> & Parameters,
+    R extends ResponseBody
+  >(requestSchema: HTTPRequest<M, PA, PR, R>, handler: RouteHandler<PR, R>): RequestHandler {
     const { parameters } = requestSchema;
 
     const routerHandler: RequestHandler = async (req, res, next) => {

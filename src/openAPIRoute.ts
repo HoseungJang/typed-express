@@ -14,8 +14,8 @@ export class OpenAPIRoute {
     this.spec = new OASBuilder(info, this.getHTTPRequestSchemas("/", routeSwitch), responseSchemas).build();
   }
 
-  private getHTTPRequestSchemas(baseURL: string, routeSwitch: Switch): HTTPRequest<any, any, any>[] {
-    const schemas: HTTPRequest<any, any, any>[] = [];
+  private getHTTPRequestSchemas(baseURL: string, routeSwitch: Switch): HTTPRequest<any, any, any, any>[] {
+    const schemas: HTTPRequest<any, any, any, any>[] = [];
     routeSwitch.children.forEach((child) => {
       if (child instanceof Switch) {
         const result = this.getHTTPRequestSchemas(this.reolveBaseURL(baseURL, child.baseURL), child);
